@@ -41,7 +41,7 @@ public class movieListRenderer extends JLabel implements ListCellRenderer{
 							"Type: Blue Ray Disc"
 							+ "</html>");
 				}
-				else if (value.getClass().getSimpleName().equals("VHS2")){
+				else if (value.getClass().getSimpleName().equals("VHS")){
 					Medie m = (VHS) value;
 					ImageIcon img = new ImageIcon("src/vhs.png");
 					setIcon(img);
