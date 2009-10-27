@@ -16,4 +16,3 @@ public class Run {
 		new MainFrame().setVisible(true);
 	}
 }
-git

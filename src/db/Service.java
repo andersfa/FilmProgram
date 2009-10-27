@@ -21,6 +21,16 @@ public class Service {
 		list.add(new VHS("Jul i Gammelby", 240));
 		list.add(new DVD("Anders And"));
 		list.add(new BD("Star Trek"));
+		list.add(new DVD("Star Wars Episode 2: The Clone War"));
+		list.add(new BD("Funnypeople"));
+		list.add(new VHS("Judge Dredd", 240));
+		list.add(new DVD("The Lion King"));
+		list.add(new BD("Stargate"));
+		list.add(new DVD("Independance Day"));
+		list.add(new BD("Avatar"));
+		list.add(new VHS("Titan A.E.", 240));
+		list.add(new DVD("Batman"));
+		list.add(new BD("Op på fars hat"));
 		
 	}
 	

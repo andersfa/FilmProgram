@@ -35,10 +35,12 @@ public class movieListRenderer extends JLabel implements ListCellRenderer{
 				else if (value.getClass().getSimpleName().equals("BD")){
 					Medie m = (BD) value;
 					ImageIcon img = new ImageIcon("src/bd.png");
+					int width = list.getWidth() - 30;
 					setIcon(img);
-					setText("<html> Titel: " + m.getTitel() +
+					setText("<html> <table width=\"" + width + "\"><tr><td>Titel: " + m.getTitel() +
 							"<br>" + 
-							"Type: Blue Ray Disc"
+							"Type: Blue Ray Disc" +
+							"</td><td align=\"right\">Test</td></tr></table>"
 							+ "</html>");
 				}
 				else if (value.getClass().getSimpleName().equals("VHS")){
