@@ -8,98 +8,123 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.ListCellRenderer;
 
-import code.BD;
-import code.DVD;
-import code.Medie;
-import code.VHS;
+import core.BD;
+import core.DVD;
+import core.Medie;
+import core.VHS;
+
 
 public class movieListRenderer extends JLabel implements ListCellRenderer{
-	   
-		public movieListRenderer() {
-	         setOpaque(true);
-	    }
 
-		public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
-	        
-			
-			try{
-				if(value.getClass().getSimpleName().equals("DVD")){
-					Medie m = (DVD) value;
-					ImageIcon img = new ImageIcon("src/dvd.png");
-					setIcon(img);
-					setText("<html> Titel: " + m.getTitel() +
-							"<br>" + 
-							"Type: Digital Video Disc"
-							+ "</html>");
-				}
-				else if (value.getClass().getSimpleName().equals("BD")){
-					Medie m = (BD) value;
-					ImageIcon img = new ImageIcon("src/bd.png");
-					int width = list.getWidth() - 30;
-					setIcon(img);
-					setText("<html> <table width=\"" + width + "\"><tr><td>Titel: " + m.getTitel() +
-							"<br>" + 
-							"Type: Blue Ray Disc" +
-							"</td><td align=\"right\">Test</td></tr></table>"
-							+ "</html>");
-				}
-				else if (value.getClass().getSimpleName().equals("VHS")){
-					Medie m = (VHS) value;
-					ImageIcon img = new ImageIcon("src/vhs.png");
-					setIcon(img);
-					setText("<html> Titel: " + m.getTitel() +
-							"<br>" + 
-							"Type: VHS"
-							+ "</html>");
-				}
-				
-				
-				
-				
-				
-				
-				indstil(list, index, isSelected, cellHasFocus);
-				return this;
-			}catch (Exception e) {
-				indstil(list, index, isSelected, cellHasFocus);
-				setText(value.toString());
-				 return this;
+	private static final long serialVersionUID = 1L;
+	private ImageHandler imgHandler;
+
+	public movieListRenderer(ImageHandler imgHandler) {
+		setOpaque(true);
+		this.imgHandler = imgHandler;
+	}
+
+	public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+
+
+		try{
+			if(value.getClass().getSimpleName().equals("DVD")){
+				Medie m = (DVD) value;
+				ImageIcon img = imgHandler.getDvdImage();
+				setIcon(img);
+				setText("<html> <table width=\"525\"><tr><td>Titel: " + m.getTitle() +
+						"<br>" + 
+						"Type: Digital Video Disc" +
+						"</td>" +
+						"<td align=\"right\">" + m.getPlayTimeToString() + ":Spilletid" +
+						"<br>" +
+						":Kategori" +
+						"</td></tr></table>"
+						+ "</html>");
 			}
-			
-			
-			
+			else if (value.getClass().getSimpleName().equals("BD")){
+				Medie m = (BD) value;
+				ImageIcon img = imgHandler.getBdImage();
+				setIcon(img);
+				setText("<html> <table width=\"525\"><tr><td>Titel: " + m.getTitle() +
+						"<br>" + 
+						"Type: Blue Ray Disc" +
+						"</td>" +
+						"<td align=\"right\">" + m.getPlayTimeToString() + ":Spilletid" +
+						"<br>" +
+						":Kategori" +
+						"</td></tr></table>"
+						+ "</html>");
+			}
+			else if (value.getClass().getSimpleName().equals("VHS")){
+				VHS m = (VHS) value;
+				ImageIcon img = imgHandler.getVhsImage();
+				setIcon(img);
+				setText("<html> <table width=\"525\"><tr><td>Titel: " + m.getTitle() +
+						"<br>" + 
+						"Type: VHS" +
+						"</td>" +
+						"<td align=\"right\">" + m.getPlayTimeToString() + ":Spilletid" +
+						"<br>" +
+						":Kategori" +
+						"</td></tr></table>"
+						+ "</html>");
+			}
 
-	         
 
-	        
-	     }
-		
-		private void indstil(JList list, int index, boolean isSelected, boolean cellHasFocus){
-			Color background;
-	         Color foreground;
 
-	         // check if this cell represents the current DnD drop location
-	         JList.DropLocation dropLocation = list.getDropLocation();
-	         if (dropLocation != null
-	                 && !dropLocation.isInsert()
-	                 && dropLocation.getIndex() == index) {
 
-	             background = Color.BLUE;
-	             foreground = Color.WHITE;
 
-	         // check if this cell is selected
-	         } else if (isSelected) {
-	             background = Color.BLUE;
-	             foreground = Color.WHITE;
 
-	         // unselected, and not the DnD drop location
-	         } else {
-	             background = Color.WHITE;
-	             foreground = Color.BLACK;
-	         };
-
-	         setBackground(background);
-	         setForeground(foreground);
+			indstil(list, index, isSelected, cellHasFocus);
+			return this;
+		}catch (Exception e) {
+			indstil(list, index, isSelected, cellHasFocus);
+			setText(value.toString());
+			return this;
 		}
-		
+
+
+
+
+
+
+
+	}
+
+	private void indstil(JList list, int index, boolean isSelected, boolean cellHasFocus){
+		Color background;
+		Color foreground;
+
+		// check if this cell represents the current DnD drop location
+		JList.DropLocation dropLocation = list.getDropLocation();
+		if (dropLocation != null
+				&& !dropLocation.isInsert()
+				&& dropLocation.getIndex() == index) {
+			
+			background = Color.BLUE;
+			foreground = Color.WHITE;
+
+			// check if this cell is selected
+		} else if (isSelected) {
+			background = new Color(100,100,100);
+			foreground = Color.WHITE;
+
+			// unselected, and not the DnD drop location
+		} else {
+			if(index%2 == 0){
+				background = Color.WHITE;
+				foreground = Color.BLACK;
+			}
+			else{
+				background = new Color(240,240,240);
+				foreground = Color.BLACK;
+			}
+		};
+
+		setBackground(background);
+		setForeground(foreground);
+		this.setSize(list.getWidth(), 32);
+	}
+
 }
